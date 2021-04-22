@@ -1,14 +1,14 @@
 # Predicting Solar Power Generation
 ---
 
-### 1. Preamble
+## 1. Preamble
 ---
 
 Demand for energy is increasing, and is one of the main reasons for integration of **solar energy** into the electric grids or networks. Based on existing technologies, solar energy (compared to other renewable energy options) provides the greatest potential for deployment in Singapore [1].
 
 One of the challenges with integrating solar energy, into the grid network is that its power generation is intermittent and uncontrollable. Therefore, predicting future solar power generation is important, since the grid must dispatch generators to satisfy demand as generation varies [2].
 
-### 2. Objective
+## 2. Objective
 ---
 
 The project objective is to predict potential solar power generation most accurately, based on historical data. In evaluating the accuracy of models, I refer to the root mean squared error (RMSE) and the mean absolute error (MAE).
@@ -17,7 +17,7 @@ The RMSE is the root average of the total squared forecast error values. The mea
 
 The MAE is the average magnitude of errors in a set of predictions, without considering direction (ie. negative or positive). Similarly, a better model would have lower MAE.
 
-### 3. Contents
+## 3. Contents
 ---
 
 01. [Data Cleaning](#Data-Cleaning)
@@ -26,7 +26,7 @@ The MAE is the average magnitude of errors in a set of predictions, without cons
 04. [Forecasting with linear regression/ tree algorithms/ fbprophet](code/04-modelling-forecast.ipynb)
 05. [Forecasting with neural networks](code/05-modelling-neural-nets.ipynb)
 
-### 4. Folder Organisation
+## 4. Folder Organisation
 ---
 
     |__ code
@@ -52,10 +52,10 @@ The MAE is the average magnitude of errors in a set of predictions, without cons
     |   |__ solar-enery-potential.pdf
     |__ README.md
 
-### 5. Analysis and Findings
+## 5. Analysis and Findings
 ---
 
-#### 5.1 [Data Cleaning](code/01-data-cleaning.ipynb)
+### 5.1 [Data Cleaning](code/01-data-cleaning.ipynb)
 ---
 
 Both datasets comprise 50 years' worth of solar generation data of European countries by country and by NUTS 2 system. The values in both datasets reflect the hourly estimates of the area's solar energy potential from 1986 to 2015. The same kind of data is collected, just that the one for NUTS 2 system collect solar energy potential of different regions of a country so this dataset has more data to work with for a particular country.
@@ -70,7 +70,7 @@ The pandas profiling report generated for the datasets, showed the following:
 
 Further data exploration will be done after clustering the countries.
 
-#### 5.2 [Clustering](code/02-modelling-clustering.ipynb)
+### 5.2 [Clustering](code/02-modelling-clustering.ipynb)
 ---
 
 First I want to visualize the average energy potential of each countries across the years (Figure 1).
@@ -131,7 +131,7 @@ I then proceed to explore the data by looking at one country in each cluster :
 
 *Figure 6: Selected country in each cluster*
 
-#### 5.3 [Data Exploration](code/03-data-exploration.ipynb)
+### 5.3 [Data Exploration](code/03-data-exploration.ipynb)
 ---
 
 Considering the voluminous data, I decided to just look at 10 years' worth of data to explore. I did a sanity check on the data points, firstly that there are no negative values, and secondly, that there are no values greater than 1 (since values are in %). None were noted. So I proceeded with the exploration.
@@ -190,14 +190,14 @@ Using the NUTS dataset, we also see the same trend for different regions of Spai
 
 Now that we've understood the seasonality in data, I proceed to <ins>forecast solar energy potential in Spain</ins>
 
-#### 5.4 [Modelling with linear regression, tree algorithms and fbprophet](code/04-modelling-forecast.ipynb)
+### 5.4 [Modelling with linear regression, tree algorithms and fbprophet](code/04-modelling-forecast.ipynb)
 ---
 
-##### 5.4.1 Preprocessing
+#### 5.4.1 Preprocessing
 
 I split the data such that the last month in the dataset (ie. December 2015) will be the test set, and all 9 years 11 months earlier will be what the model will train on. December 2015 data is the holdout set, from which I will determine how well the model generalises.
 
-##### 5.4.2 Baseline Model
+#### 5.4.2 Baseline Model
 
 Before running the data on any algorithms, I first set out the **baseline model** from which we will benchmark against how other model performs.
 
@@ -215,7 +215,7 @@ Results of model based no RMSE and MAE as evaluation metrics, below :
 | :-----: | :--: | :---: |
 | Baseline | 0.0524 | 0.0258 |
 
-##### 5.4.3 Models Considered : Linear Regression, Random Forest Regressor, K Neighbours Regressor and XG Boost Regressor.
+#### 5.4.3 Models Considered : Linear Regression, Random Forest Regressor, K Neighbours Regressor and XG Boost Regressor.
 
 I ran the train set on these models considered, and results of training set are tabled below :
 
@@ -231,7 +231,7 @@ From here, sadly, none of the models did better than baseline. The closest is li
 
 In view of the above results, I explored other models to try and achieve something better than baseline.
 
-##### 5.4.4 Modelling with fbprophet
+#### 5.4.4 Modelling with fbprophet
 
 FB prophet is a powerful library and has hyperparameters that can tune seasonality, so I figured this model could probably perform much better than those considered earlier.
 
@@ -254,30 +254,29 @@ From Figure 13 above, we see that the predictions are closer to the true values 
 
 FB Prophet had the best score amongst other models! I then try to beat that score using neural networks.
 
-##### 5.4.5 Modelling with neural networks
+#### 5.4.5 Modelling with neural networks
 
 First, I used a simple recurrent neural network (RNN) to predict.
 
 
 
-
 Then, I also attempted to predict with Long Short-Term Memory (LSTM).
 
-#### 5.3 Conclusion and Recommendation
+### 5.3 Conclusion and Recommendation
 
 
-#### 5.4 Further Development
+### 5.4 Further Development
 
 Scale th eporject. Measure solar irradiance in various parts of Sg, and detemrine which one offers morst sinlight, and plant all solar PVs there.
 
 Consider other time frames for prediction eg. 2 days later, or 1 month later. Consider how different models can work better for different time frames.
 
-#### 5.5 Challenges and Limitations
+### 5.5 Challenges and Limitations
 
 Uncontrollable factors that affect solar efficiency. Climate hange. Temperatures may continue to rise, lowering efficiency of cells, cloud cover and humidity may increase, frequency of pwoerful stoms may escalate. These present uncontrollable and severe limitations to Singapre's ability to generate significant quantities of electricity from revieweblae sources.
 
 
-### 6. Data Dictionary
+## 6. Data Dictionary
 
 Below description of the dataset, sourced from [kaggle](https://www.kaggle.com/sohier/30-years-of-european-solar-generation). The data was made available by the [European Commission's STETIS Program](https://setis.ec.europa.eu/about-setis).
 
@@ -289,7 +288,7 @@ Below description of the dataset, sourced from [kaggle](https://www.kaggle.com/s
 
 
 
-### 7. References
+## 7. References
 
 [1] Energy Market Authority (EMA) "Intermittency Pricing Mechanism for Intermittent Generation Sources in the National Electricity Market of Singapore" [Online Document], 2018. https://www.ema.gov.sg/cmsmedia/Final%20Determination%20Paper%20-%20Intermittency%20Pricing%20Mechanism%20vf.pdf [Accessed: 22 April 2021]
 
