@@ -45,9 +45,6 @@ The MAE is the average magnitude of errors in a set of predictions, without cons
     |   |__ spain-energy-potential-country.csv
     |   |__ spain-energy-potential-nuts.csv
     |__ images
-    |   |__ avg-solar-by-country.png
-    |   |__ distortion-score.jpg
-    |   |__ eda.jpg
     |__ presentation_slides
     |   |__ solar-enery-potential.pdf
     |__ README.md
@@ -85,13 +82,13 @@ I use `KMeans` to cluster the countries, and chose a range of 2 to 10 clusters. 
 
 Distortion score is the sum of squared distances from each point to its assigned center (ie. sum of squared errors). The elbow method seeks to identify a point as number of clusters increase, where the distortion score start to flatten, forming the elbow. This is then determined to be the ideal number of clusters for the data (Figure 2).
 
-![](assets/distortion-score.png)
+![](assets/distortion-score.JPG)
 
 *Figure 2: Distortion score elbow for KMeans clusters 2 to 10*
 
 From here, we see that 5 clusters is ideal. The elbow method mostly serves as a guide, and should be considered alongside **silhouette score**. **Silhouette score** considers both the average intra-cluster distance and average inter-cluster distance. A score close to 1 means that the clusters are well apart from each other and clearly distinguished. Figure 3 shows the the silhouette scores and distribution of data points across the clusters for 4 clusters, 5 clusters, and 6 clusters.
 
-![](assets/silhouette-scores.png)
+![](assets/silhouette-scores.JPG)
 
 *Figure 3: Silhouette scores for clusters 4 to 6*
 
@@ -111,7 +108,7 @@ Between 3, 4 and 5 clusters, the plot with 5 clusters have a more uniform cluste
 
 Looking at the intercluster distances for clusters 4 to 6 in Figure 4, from cluster 6, there seem to be too many overlapping regions. Cluster 5 too showed some overlaps.
 
-![](assets/intercluster-distance.png)
+![](assets/intercluster-distance.JPG)
 
 *Figure 4: Intercluster distance for clusters 4 to 6*
 
@@ -121,13 +118,13 @@ Based on this, we will go forward with 5 clusters using KMeans clustering.
 
 I applied the cluster labels, and these are the countries in the different clusters (Figure 5):
 
-![](assets/countries-by-cluster.png)
+![](assets/countries-by-cluster.JPG)
 
 *Figure 5: Countries in respective clusters*
 
 I then proceed to explore the data by looking at one country in each cluster :
 
-![](assets/country-in-cluster.png)
+![](assets/country-in-cluster.JPG)
 
 *Figure 6: Selected country in each cluster*
 
@@ -138,7 +135,7 @@ Considering the voluminous data, I decided to just look at 10 years' worth of da
 
 First I look at how solar energy potential changes within a day (24 hours) (Figure 7).
 
-![](assets/24h-by-country.png)
+![](assets/24h-by-country.JPG)
 
 *Figure 7: Hourly solar energy potential for each country*
 
@@ -151,7 +148,7 @@ From here, we see that :
 
 Next I consider the distribution of solar energy potential within the daylight hours (Figure 8).
 
-![](assets/24h-distr-by-ctry.png)
+![](assets/24h-distr-by-ctry.JPG)
 
 *Figure 8: Distribution of hourly solar energy potential for each country*
 
@@ -165,7 +162,7 @@ Thirdly, I look at potential seasonality over the years, since these countries h
 
 Using just **Spain's** data, I plot the 10-year graph of energy potential to view seasonality (Figure 9).
 
-![](assets/spain-seasonality-year.png)
+![](assets/spain-seasonality-year.JPG)
 
 *Figure 9: Spain's yearly seasonality of energy potential*
 
@@ -176,7 +173,7 @@ We see that:
 
 I plot the Spain's data using the NUTS 2 dataset, and had the same seasonality trend within the year. I went to look into the trend within months of a year, to confirm the seasons for Spain, that affect energy potential (Figure 10).
 
-![](assets/spain-month-seasonality.png)
+![](assets/spain-month-seasonality.JPG)
 
 *Figure 10: Spain's seasonality of energy potential, by months*
 
@@ -184,7 +181,7 @@ Looking at how energy potential changes within a year, for Spain, hottest months
 
 Using the NUTS dataset, we also see the same trend for different regions of Spain (Figure 11).
 
-![](assets/nuts-spain-month-seasonality.png)
+![](assets/nuts-spain-month-seasonality.JPG)
 
 *Figure 11: Spain's seasonality of energy potential, by months (NUTS2 system)*
 
@@ -205,7 +202,7 @@ I determine the baseline model to be the **mean** of past solar energy potential
 
 Plotting the true values against baseline predictions (Figure 12), we see that the model does recognise seasonality but did not really identify more complex patterns.
 
-![](assets/baseline-predictions.png)
+![](assets/baseline-predictions.JPG)
 
 *Figure 12: Baseline predictions against true values of test set*
 
@@ -237,7 +234,7 @@ FB prophet is a powerful library and has hyperparameters that can tune seasonali
 
 After tuning its hyperparameters, indeed, it did perform slightly better than earlier models.
 
-![](assets/fbprophet-predictions.png)
+![](assets/fbprophet-predictions.JPG)
 
 *Figure 13: FB Prophet predictions against true values of test set*
 
@@ -260,7 +257,7 @@ First, I used a simple recurrent neural network (RNN) to predict. RNN is a class
 
 Running the simple RNN, it performed slightly better than fbprophet.
 
-![](assets/rnn-predictions.png)
+![](assets/rnn-predictions.JPG)
 
 *Figure 14: RNN predictions against true values of test set*
 
@@ -270,7 +267,7 @@ I also attempted to predict with Long Short-Term Memory (LSTM). LSTMs includes a
 
 From Figure 15, it did just slightly better than RNN, which makes sense since the model would be also be able to account for seasonality.
 
-![](assets/lstm-predictions.png)
+![](assets/lstm-predictions.JPG)
 
 *Figure 15: LSTM predictions against true values of test set*
 
