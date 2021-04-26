@@ -256,25 +256,54 @@ FB Prophet had the best score amongst other models! I then try to beat that scor
 
 #### 5.4.5 Modelling with neural networks
 
-First, I used a simple recurrent neural network (RNN) to predict.
+First, I used a simple recurrent neural network (RNN) to predict. RNN is a class of neural networks powerful for modeling *sequence* data like time series or natural language. RNNs have a sense memory which helps in keeping track of what happened earlier in the sequential data, that helps them *gain context and identifying correlations and patterns* [3].
 
+Running the simple RNN, it performed slightly better than fbprophet.
 
+![](assets/rnn-predictions.jpg)
 
-Then, I also attempted to predict with Long Short-Term Memory (LSTM).
+*Figure 14: RNN predictions against true values of test set*
+
+While fbprophet was able to capture seasonality, it is likely that taking into consideration the solar energy potential in the previous hour is equally or more important for the model to predict.
+
+I also attempted to predict with Long Short-Term Memory (LSTM). LSTMs includes a "memory cell" that can maintain information in memory for long periods of time. A set of gates is used to control when information enters the memory, when it's output and when it's forgotten [4].
+
+From Figure 15, it did just slightly better than RNN, which makes sense since the model would be also be able to account for seasonality.
+
+![](assets/lstm-predictions.jpg)
+
+*Figure 15: LSTM predictions against true values of test set*
 
 ### 5.3 Conclusion and Recommendation
 
+Here's a summary of results of predictions :
+
+| Model | RMSE | MAE |
+| :-----: | :--: | :---: |
+| Baseline | 0.0524 | 0.0258 |
+| Linear Regression | 0.0532 | 0.0283 |
+| Random Forest | 0.0542 | 0.0268 |
+| K Neighbors | 0.0622 | 0.0313 |
+| XG Boost | 0.0554 | 0.0346 |
+| FB Prophet | 0.0491 | 0.0293 |
+| RNN | 0.0381 | 0.0197 |
+| LSTM | 0.0353 | 0.0173 |
+
+LSTM is most accurate in predicting solar energy potential and this model appear to be stable to help with more effective grid management.
+
+Apart from effective grid management, we would also be able to predict which hours of the day where more energy is generated or where energy is least generated, and subsequently advice consumers times of the day where it's best to reduce energy consumption.
 
 ### 5.4 Further Development
 
-Scale th eporject. Measure solar irradiance in various parts of Sg, and detemrine which one offers morst sinlight, and plant all solar PVs there.
+While data is based on regions in Spain, it is possible to scale this upwards to states or continents.
 
-Consider other time frames for prediction eg. 2 days later, or 1 month later. Consider how different models can work better for different time frames.
+In the local context, it is possible to measure solar irradiance in various parts of Singapore. From here, areas with most sunlight could be identified, and solar panel placement could be made more efficient.
 
 ### 5.5 Challenges and Limitations
 
-Uncontrollable factors that affect solar efficiency. Climate hange. Temperatures may continue to rise, lowering efficiency of cells, cloud cover and humidity may increase, frequency of pwoerful stoms may escalate. These present uncontrollable and severe limitations to Singapre's ability to generate significant quantities of electricity from revieweblae sources.
+The project has attempted to predict solar energy potential based on historical data assuming ideal conditions.
 
+There are other uncontrollable factors that may affect solar efficiency. Factors that affect efficiency of cells include higher temperatures, cloud cover or storms, and high humidity. These present some external limitations to Singapore's ability to generate significant quantities of electricity from renewable energy sources.
 
 ## 6. Data Dictionary
 
@@ -293,3 +322,7 @@ Below description of the dataset, sourced from [kaggle](https://www.kaggle.com/s
 [1] Energy Market Authority (EMA) "Intermittency Pricing Mechanism for Intermittent Generation Sources in the National Electricity Market of Singapore" [Online Document], 2018. https://www.ema.gov.sg/cmsmedia/Final%20Determination%20Paper%20-%20Intermittency%20Pricing%20Mechanism%20vf.pdf [Accessed: 22 April 2021]
 
 [2] N. Sharma, P. Sharma, D. Irwin and P. Shenoy "Predicting Solar Generation from Weather Forecasts Using Machine Learning" [Online Document], 2011. http://www.ecs.umass.edu/~irwin/smartgridcomm.pdf [Accessed: 22 April 2021]
+
+[3] K.Kohli "Recurrent Neural Networks (RNN's) and Time Series Forecasting" [Online Article], 2020. https://medium.com/analytics-vidhya/recurrent-neural-networks-rnns-and-time-series-forecasting-d9ea933426b3 [Accessed: 26 April 2021]
+
+[4] J. Chung, C. Gulcehre, K. Cho, Y. Bengio "Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling" [Online Paper], 2014.
